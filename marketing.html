@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="text-scale" content="scale" />
+  <title>PurrMiso — Kitten Merge &amp; Cats</title>
+  <meta name="description" content="Merge cozy treats on a tactile 5x6 board, nurture growing kittens, and breed 9,600 unique Mendelian cats in your sunlit sanctuary — 100% offline." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FFF6E8;
+      --bg-warm: #F7EBD9;
+      --surface: #FFFDF9;
+      --espresso: #4A3525;
+      --espresso-deep: #2E1F14;
+      --muted: #6E523C;
+      --wood: #D4A373;
+      --coral: #D94382;
+      --coral-bright: #FF7EB6;
+      --coral-soft: rgba(255, 126, 182, 0.16);
+      --honey: #FFB800;
+      --honey-soft: rgba(255, 184, 0, 0.2);
+      --matcha: #52C478;
+    }
+
+    body {
+      font-family: 'Nunito', ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      color: var(--espresso);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 1.25rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -12rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 42rem;
+      height: 42rem;
+      background: radial-gradient(circle, rgba(255, 184, 0, 0.24) 0%, rgba(255, 126, 182, 0.16) 42%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 36rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.75rem;
+      padding: 4.5rem 0 3.5rem;
+    }
+
+    h1, h3, h4 {
+      font-family: 'Fredoka', ui-rounded, 'SF Pro Rounded', sans-serif;
+      text-wrap: balance;
+    }
+
+    p {
+      text-wrap: pretty;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.15rem;
+      text-align: center;
+    }
+
+    .icon {
+      width: 5.75rem;
+      height: 5.75rem;
+      border-radius: 1.5rem;
+      background: linear-gradient(145deg, #FFE4EC 0%, #FFF3D1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--espresso);
+      box-shadow: 0 5px 0 var(--espresso), 0 16px 34px rgba(217, 67, 130, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--espresso);
+      background: var(--honey-soft);
+      border: 2px solid var(--espresso);
+      box-shadow: 0 2px 0 var(--espresso);
+      padding: 0.3rem 0.95rem;
+      border-radius: 999px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 1.4rem + 2.4vw, 2.65rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--espresso);
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, #D94382 0%, #E07A00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 29rem;
+    }
+
+    /* App Store button */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--espresso);
+      color: var(--surface);
+      padding: 0.9rem 1.75rem;
+      border-radius: 1.1rem;
+      border: 3px solid var(--espresso-deep);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 0 var(--espresso-deep), 0 12px 24px rgba(74, 53, 37, 0.18);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      margin-top: 0.25rem;
+    }
+
+    .cta:hover {
+      background: #5B422F;
+      transform: translateY(-1px);
+    }
+
+    .cta:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--espresso-deep);
+    }
+
+    .cta svg { flex-shrink: 0; }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 2.5px solid var(--espresso);
+      box-shadow: 0 4px 0 var(--espresso), inset 0 2px 0 rgba(255, 255, 255, 0.75);
+      border-radius: 1.25rem;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .card-icon {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 0.75rem;
+      background: var(--coral-soft);
+      border: 2px solid var(--espresso);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.15rem;
+    }
+
+    .card:nth-child(2) .card-icon { background: var(--honey-soft); }
+    .card:nth-child(3) .card-icon { background: rgba(82, 196, 120, 0.18); }
+    .card:nth-child(4) .card-icon { background: rgba(78, 168, 222, 0.18); }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .card p {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Steps */
+    .steps {
+      width: 100%;
+      background: var(--surface);
+      border: 2.5px solid var(--espresso);
+      box-shadow: 0 4px 0 var(--espresso);
+      border-radius: 1.35rem;
+      padding: 0.35rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.95rem;
+      padding: 1.05rem 0;
+      border-bottom: 2px dashed var(--bg-warm);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--coral-soft);
+      border: 2px solid var(--espresso);
+      box-shadow: 0 2px 0 var(--espresso);
+      color: var(--coral);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .step-text h4 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+      color: var(--espresso);
+    }
+
+    .step-text p {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.15rem;
+    }
+
+    footer a {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    footer a:hover {
+      color: var(--coral);
+      text-decoration: underline;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(110, 82, 60, 0.75);
+    }
+
+    @media (max-width: 28em) {
+      main { padding: 3.25rem 0 2.5rem; gap: 2.15rem; }
+      .features { grid-template-columns: 1fr; }
+      .steps { padding: 0.25rem 1.05rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta, footer a { transition: none; }
+      .cta:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="hero">
+      <div class="icon" aria-hidden="true">
+        <svg width="60" height="60" viewBox="0 0 64 64" fill="none">
+          <path d="M14 27L11 11L25 19Z" fill="#FFFDF9" stroke="#4A3525" stroke-width="3.2" stroke-linejoin="round" />
+          <path d="M15.5 23.5L13.8 14.8L21.8 19.5Z" fill="#FF9EC6" />
+          <path d="M50 27L53 11L39 19Z" fill="#FFB84D" stroke="#4A3525" stroke-width="3.2" stroke-linejoin="round" />
+          <ellipse cx="32" cy="36" rx="21" ry="18" fill="#FFFDF9" stroke="#4A3525" stroke-width="3.2" />
+          <path d="M39 19.5C46 21.5 51 27 52 33.5C46.5 34 42 30.5 39 19.5Z" fill="#FFB84D" />
+          <path d="M13 30C15 22.5 20.5 19.5 25 19C23.5 26.5 19 30 13 30Z" fill="#8C6D53" />
+          <circle cx="24" cy="35" r="3.2" fill="#4EA8DE" stroke="#4A3525" stroke-width="2" />
+          <circle cx="23.1" cy="34" r="1" fill="#FFFFFF" />
+          <circle cx="40" cy="35" r="3.2" fill="#FFB800" stroke="#4A3525" stroke-width="2" />
+          <circle cx="39.1" cy="34" r="1" fill="#FFFFFF" />
+          <ellipse cx="18.5" cy="40" rx="3.4" ry="2" fill="#FF7EB6" opacity="0.55" />
+          <ellipse cx="45.5" cy="40" rx="3.4" ry="2" fill="#FF7EB6" opacity="0.55" />
+          <path d="M30.2 38.2L33.8 38.2L32 40.5Z" fill="#FF7EB6" stroke="#4A3525" stroke-width="1.8" stroke-linejoin="round" />
+          <path d="M27.5 42C29 44 31.2 43.8 32 42.2C32.8 43.8 35 44 36.5 42" stroke="#4A3525" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <span class="badge">Available on the App Store</span>
+      <h1>Merge cozy treats,<br /><span>breed rare kittens.</span></h1>
+      <p class="sub">Craft warm milk, salmon bites, and plush yarn on a tactile 5&times;6 Merge-2 board, nurture kittens through 3 growth stages, and discover 9,600 unique Mendelian cats in your sunlit sanctuary.</p>
+      <a class="cta" href="#" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFDF9" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+    </div>
+
+    <div class="features">
+      <div class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A3525" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20.5s-7-4.4-7-10.2A4.3 4.3 0 0 1 9.3 6c1.5 0 2.7.8 2.7 2 0-1.2 1.2-2 2.7-2A4.3 4.3 0 0 1 19 10.3c0 5.8-7 10.2-7 10.2z" fill="#FF7EB6" />
+          </svg>
+        </div>
+        <h3>9,600 Mendelian Cats</h3>
+        <p>Pass down real coat patterns, folded ears, fluffy plumes, and odd-eyed heterochromia across 5 gene axes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A3525" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="3.5" width="7.5" height="7.5" rx="2" fill="#FFB800" />
+            <rect x="13" y="3.5" width="7.5" height="7.5" rx="2" fill="#FFF6E8" />
+            <rect x="3.5" y="13" width="7.5" height="7.5" rx="2" fill="#FFF6E8" />
+            <rect x="13" y="13" width="7.5" height="7.5" rx="2" fill="#FFB800" />
+          </svg>
+        </div>
+        <h3>Tactile 5&times;6 Merge-2</h3>
+        <p>Combine 24 storybook treats and toys across 4 chains with ascending ASMR chimes and soft haptics.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A3525" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="14" r="5" fill="#52C478" />
+            <circle cx="7" cy="8.5" r="2" fill="#52C478" />
+            <circle cx="12" cy="6.5" r="2" fill="#52C478" />
+            <circle cx="17" cy="8.5" r="2" fill="#52C478" />
+          </svg>
+        </div>
+        <h3>Living Cat Sanctuary</h3>
+        <p>Pet purring kittens, watch 3-stage growth from tiny newborn to regal adult, and collect cozy accessories.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A3525" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l2.6 5.4 5.9.9-4.2 4.1 1 5.9L12 16.5 6.7 19.3l1-5.9-4.2-4.1 5.9-.9L12 3z" fill="#4EA8DE" />
+          </svg>
+        </div>
+        <h3>100% Offline &amp; Cozy</h3>
+        <p>No Wi-Fi required and zero forced pop-up ads. Relax at your own pace in 10 supported languages.</p>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Spawn &amp; Merge Treats</h4>
+          <p>Tap cozy generators and drag matching milk bottles, fish snacks, and yarn balls across the wooden 5&times;6 board.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Serve Cravings &amp; Grow</h4>
+          <p>Deliver freshly crafted orders to hungry kittens to fill their Growth XP from Stage 1 Newborn to Stage 3 Adult.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Breed Rare Pedigrees</h4>
+          <p>Pair two adult cats in the Breeding Basket with transparent Mendelian odds to discover rare and SSR traits.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>Complete the Pedigree Dex</h4>
+          <p>Catalog all 32 genetic alleles, collect passive Gold Fish from your ceramic jar, and claim milestone Gems.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://paycyl-hq.github.io/purrmiso-support/">Privacy Policy</a>
+      <a href="https://paycyl-hq.github.io/purrmiso-support/">Support</a>
+      <a href="mailto:abonnenapp@gmail.com">Contact</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+    </div>
+    <p>&copy; 2026 PurrMiso: Kitten Merge &amp; Cats. All rights reserved.</p>
+  </footer>
+</body>
+</html>
